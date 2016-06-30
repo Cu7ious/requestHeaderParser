@@ -5,7 +5,7 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cu7ious/freeCodeCampC9Workspace"
+    "url": "git+https://github.com/Cu7ious/timestampMicroservice"
   },
   "keywords": [
     "MongoDB",
