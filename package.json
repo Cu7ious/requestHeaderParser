@@ -16,12 +16,13 @@
     "ES2015"
   ],
   "scripts": {
-  "start": "node --harmony server.js"
+    "start": "node --harmony server.js"
   },
   "author": "Cu7ious",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^1.2.0",
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+    "express-handlebars": "^3.0.0"
   }
 }

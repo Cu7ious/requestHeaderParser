@@ -1,8 +1,18 @@
 const express = require('express')
+const handlebars = require('express-handlebars')
 const indexRoute = require('./app/routes')
+const env = require('dotenv')
+
+env.load()
 
 const app = express()
-require('dotenv').load()
+
+app.engine('.hbs',
+	handlebars({defaultLayout: 'index', extname: '.hbs'})
+)
+
+app.set('view engine', '.hbs')
+app.set('views', __dirname + '/app/views')
 
 app.use('/', express.static(__dirname + '/public'))
 app.use('/', indexRoute)

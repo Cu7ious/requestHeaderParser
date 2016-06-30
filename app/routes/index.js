@@ -9,24 +9,26 @@ const months = [
 ]
 
 router.get('/', (req, response) => {
-  response.sendFile('index.html')
+  response.render('index', {
+    projectURL: process.env.APP_URL || 'https://cu7ious-fcc-req-hp.herokuapp.com/',
+    layout: false
+  })
 })
-.get('/:date', (req, response) => {
+.get('/api', (req, response) => {
+  response.send('Welcome to our API. Try /api/whoami/ endpoint')
+})
+.get('/api/whoami', (req, response) => {
+  const ip   = (req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'] : false
+  const lang = (req.headers['accept-language']) ? req.headers['accept-language'] : false
+  const ua   = (req.headers['user-agent']) ? req.headers['user-agent'].split(/\s*[;)(]\s*/) : false
 
-  const newDate = (new Date(req.params.date) != 'Invalid Date') ? new Date(req.params.date) : new Date(Number(req.params.date))
+  console.log(ua)
 
-  if (newDate != 'Invalid Date') {
-    response.json({
-      'unix': newDate.getTime(),
-      'natural': `${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`
-    })
-  } else {
-    response.json({
-      'unix': null,
-      'natural': null
-    })
-  }
-
+  response.json({
+    'ipaddress': ip,
+    'language' : lang,
+    'software' : (ua.length > 1) ? `${ua[1]}; ${ua[2]}` : ua[0]
+  })
 })
 
 module.exports = router
